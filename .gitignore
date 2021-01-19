@@ -1,0 +1,5 @@
+# env folder
+venv
+
+# misc
+.DS_Store
