@@ -45,7 +45,7 @@ def main():
 
         # create socket, get the ip, and connect 
         s = create_tcp_socket()
-
+        
         remote_ip = get_remote_ip(host)
 
         s.connect((remote_ip, port))

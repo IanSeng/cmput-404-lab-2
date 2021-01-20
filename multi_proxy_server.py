@@ -3,41 +3,28 @@ import socket, sys, time
 from multiprocessing import Process
 
 def create_tcp_socket():
-    # print("creating socket")
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except (socket.error, msg):
-        # print(f'Fail to create socket. Error code: {str(msg[0])}, Error message: {msg[1]}')
         sys.exit()
-
-    # print('Socket created successfully')
     return s
 
 
 def get_remote_ip(host):
-    # print(f"getting IP for {host}")
     try:
         remote_ip = socket.gethostbyname(host)
-        # print(f'Getting IP for {host}')
     except socket.gaierror:
-        # print("Hostname could not be resolved. Exiting")
         sys.exit()
-
-    # print(f'Ip address of {host} is {remote_ip}')
     return remote_ip
         
 
 def send_data(serversocket, payload):
-    # print("Sending payload")
     try: 
         serversocket.sendall(payload.encode())
     except socket.error:
-        # print('Send failed')
         sys,exit()
-    # print("Payload sent successfully")
 
 def helper_echo(add, conn, data):
-    conn.recv(1024)
     time.sleep(0.5)
     conn.sendall(data)
     conn.shutdown(socket.SHUT_WR)
@@ -78,16 +65,16 @@ def main():
         s.close()
 
 
-    HOST = ""
-    PORT = 8001
+    # Establish scoket server 
+    SERVER_HOST = ""
+    SERVER_PORT = 8001
     BUFFER_SIZE = 1024
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    
-        #QUESTION 3
+
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
         #bind socket to address
-        s.bind((HOST, PORT))
+        s.bind((SERVER_HOST, SERVER_PORT))
         #set to listening mode
         s.listen(2)
         
